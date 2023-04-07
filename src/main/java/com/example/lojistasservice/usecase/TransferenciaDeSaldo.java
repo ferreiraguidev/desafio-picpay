@@ -5,6 +5,7 @@ import com.example.lojistasservice.client.VerificationClient;
 import com.example.lojistasservice.domain.enums.TiposUsuarios;
 import com.example.lojistasservice.gateway.UsuariosGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,16 +16,15 @@ import java.util.List;
 public class TransferenciaDeSaldo {
 
     private final UsuariosGateway usuariosGateway;
-
     private final VerificationClient verificationClient;
 
     public void execute(Long to, Long from, double value) {
-        final var usuarioTransfer = usuariosGateway.findById(to);
-        final var usuarioRecieve = usuariosGateway.findById(from);
+        val usuarioTransfer = usuariosGateway.findById(to);
+        val usuarioRecieve = usuariosGateway.findById(from);
 
         if (usuarioTransfer.getTipoUsuario() == TiposUsuarios.LOJISTA) {
             //TODO: Create custom Exception
-            throw new IllegalArgumentException("Lojista não pode enviar saldo!");
+            throw new IllegalArgumentException("Lojista não pode transferir saldo!");
         }
         if (usuarioTransfer.getSaldo() > 0 && value <= usuarioTransfer.getSaldo()) {
             double saldo = usuarioTransfer.getSaldo() - value;
@@ -33,10 +33,10 @@ public class TransferenciaDeSaldo {
             double saldo2 = usuarioRecieve.getSaldo() + value;
             usuarioRecieve.setSaldo(saldo2);
 
-            final var verification = verificationClient.getVerification();
+            val verification = verificationClient.getVerification();
 
             if (verification.message().equals("Autorizado")) {
-                final var usuarios = List.of(usuarioTransfer, usuarioRecieve);
+                val usuarios = List.of(usuarioTransfer,usuarioRecieve);
                 usuarios.forEach(usuariosGateway::save);
             }
         } else {
