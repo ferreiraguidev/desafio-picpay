@@ -28,7 +28,7 @@ public class UsuarioComum {
     @Column(unique = true)
     private String email;
 
-    private double saldo;
+    private Double saldo;
 
     private Integer desconto;
 
