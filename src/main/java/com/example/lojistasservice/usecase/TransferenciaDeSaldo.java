@@ -3,6 +3,7 @@ package com.example.lojistasservice.usecase;
 
 import com.example.lojistasservice.client.VerificationClient;
 import com.example.lojistasservice.domain.enums.TiposUsuarios;
+import com.example.lojistasservice.exceptions.handler.SaldoTransferException;
 import com.example.lojistasservice.gateway.UsuariosGateway;
 import com.example.lojistasservice.exceptions.LojistaTransferException;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,7 @@ public class TransferenciaDeSaldo {
                 usuarios.forEach(usuariosGateway::save);
             }
         } else {
-            throw new IllegalArgumentException("Saldo menor que disponível!");
+            throw new SaldoTransferException("Saldo menor que disponível!");
         }
     }
 }
