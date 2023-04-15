@@ -1,5 +1,6 @@
-package com.example.lojistasservice.handler;
+package com.example.lojistasservice.exceptions.handler;
 
+import com.example.lojistasservice.exceptions.LojistaTransferException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -4,7 +4,7 @@ package com.example.lojistasservice.usecase;
 import com.example.lojistasservice.client.VerificationClient;
 import com.example.lojistasservice.domain.enums.TiposUsuarios;
 import com.example.lojistasservice.gateway.UsuariosGateway;
-import com.example.lojistasservice.handler.LojistaTransferException;
+import com.example.lojistasservice.exceptions.LojistaTransferException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;

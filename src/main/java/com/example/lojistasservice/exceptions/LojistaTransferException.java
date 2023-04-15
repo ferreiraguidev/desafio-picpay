@@ -1,4 +1,4 @@
-package com.example.lojistasservice.handler;
+package com.example.lojistasservice.exceptions;
 
 import lombok.Builder;
 
