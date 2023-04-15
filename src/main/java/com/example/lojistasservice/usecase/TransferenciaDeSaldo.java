@@ -4,6 +4,7 @@ package com.example.lojistasservice.usecase;
 import com.example.lojistasservice.client.VerificationClient;
 import com.example.lojistasservice.domain.enums.TiposUsuarios;
 import com.example.lojistasservice.gateway.UsuariosGateway;
+import com.example.lojistasservice.handler.LojistaTransferException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,7 @@ public class TransferenciaDeSaldo {
         val usuarioRecieve = usuariosGateway.findById(from);
 
         if (usuarioTransfer.getTipoUsuario() == TiposUsuarios.LOJISTA) {
-            //TODO: Create custom Exception
-            throw new IllegalArgumentException("Lojista não pode transferir saldo!");
+            throw new LojistaTransferException("Lojista não pode transferir saldo!");
         }
         if (usuarioTransfer.getSaldo() > 0 && value <= usuarioTransfer.getSaldo()) {
             double saldo = usuarioTransfer.getSaldo() - value;
